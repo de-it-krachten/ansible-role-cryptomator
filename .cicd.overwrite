@@ -1,0 +1,17 @@
+---
+
+# Generic
+generic:
+  role: ansible-role-cryptomator
+  role_short: cryptomator
+  role_description: |
+    Installs Cryptomator - Cloud Storage Encryption Utility<br>
+    https://cryptomator.org<br>
+    https://github.com/cryptomator/cryptomator<br>
+  collections: []
+
+molecule:
+  requirements:
+    roles_extra: []
+  converge:
+    pre: converge-pre.yml

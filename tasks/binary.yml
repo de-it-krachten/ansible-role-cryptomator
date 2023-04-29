@@ -1,0 +1,112 @@
+---
+
+- name: Lookup alternative system & architecture
+  ansible.builtin.set_fact:
+    cryptomator_system: "{{ cryptomator['system'][ansible_system] }}"
+    cryptomator_architecture: "{{ cryptomator['architecture'][ansible_architecture] | default(ansible_architecture) }}"
+
+- name: Get cryptomator version installed
+  ansible.builtin.shell: |
+    set -o pipefail
+    {{ cryptomator_version_command }}
+  args:
+    executable: /bin/bash
+  changed_when: no
+  failed_when: no
+  check_mode: no
+  register: cryptomator_version_installed
+
+- name: Set installed version as fact
+  ansible.builtin.set_fact:
+    cryptomator_version_installed: "{{ 'N/A' if cryptomator_version_installed.stdout | length == 0 else cryptomator_version_installed.stdout }}"
+
+- name: Get latest cryptomator release info
+  ansible.builtin.uri:
+    url: "{{ cryptomator_api + '/releases/latest' }}"
+  check_mode: no
+  register: cryptomator_version_info
+
+- name: Get latest release tag
+  ansible.builtin.set_fact:
+    cryptomator_version_latest: "{{ cryptomator_version_info.json.tag_name }}"
+
+- name: Replace 'latest' by the actual version
+  ansible.builtin.set_fact:
+    cryptomator_version: "{{ cryptomator_version_latest }}"
+  when: cryptomator_version == 'latest'
+
+- name: Get all cryptomator releases info
+  ansible.builtin.uri:
+    url: "{{ cryptomator_api + '/releases?per_page=1000' }}"
+  check_mode: no
+  register: cryptomator_version_info
+
+- name: Get version information
+  ansible.builtin.set_fact:
+    cryptomator_version_info: "{{ cryptomator_version_info.json | json_query(query) | first }}"
+  vars:
+    query: "[?tag_name=='{{ cryptomator_version }}']"
+
+- name: Show cryptomator release
+  ansible.builtin.debug:
+    msg:
+      - "cryptomator latest release    : {{ cryptomator_version_latest }}"
+      - "cryptomator requested release : {{ cryptomator_version }}"
+      - "cryptomator installed release : {{ cryptomator_version_installed }}"
+
+- name: Install/update cryptomator
+  when: cryptomator_version != cryptomator_version_installed
+  block:
+
+    - name: Create temporary directory
+      ansible.builtin.tempfile:
+        state: directory
+      changed_when: false
+      register: __tmpdir
+
+    - name: Get download location for binary/archive
+      ansible.builtin.set_fact:
+        cryptomator_url: "{{ cryptomator_version_info.assets | json_query(query) | first }}"
+      vars:
+        query: "[?name=='{{ cryptomator_file }}'].browser_download_url"
+
+    - name: Download binary/archive
+      ansible.builtin.get_url:
+        url: "{{ cryptomator_url }}"
+        dest: "{{ __tmpdir.path }}/"
+        mode: "0644"
+      changed_when: false
+
+    - name: Copy binary from archive
+      when: cryptomator_file is search('\.(gz|xz|zip)$')
+      block:
+
+        - name: Extract archive
+          ansible.builtin.unarchive:
+            src: "{{ __tmpdir.path }}/{{ cryptomator_file }}"
+            dest: "{{ __tmpdir.path }}/"
+            remote_src: true
+          changed_when: false
+
+        - name: Copy binary to {{ cryptomator_path }}
+          ansible.builtin.copy:
+            src: "{{ __tmpdir.path }}/{{ cryptomator_archive_path }}"
+            dest: "{{ cryptomator_path }}"
+            mode: "0555"
+            remote_src: true
+          become: yes
+
+    - name: Copy binary
+      ansible.builtin.copy:
+        # src: "{{ __tmpdir.path }}/{{ cryptomator_archive_path }}"
+        src: "{{ __tmpdir.path }}/{{ cryptomator_url | basename }}"
+        dest: "{{ cryptomator_path }}"
+        mode: "0555"
+        remote_src: true
+      become: yes
+
+    - name: Cleanup temporary directory
+      ansible.builtin.file:
+        path: "{{ __tmpdir.path }}"
+        state: absent
+      changed_when: false

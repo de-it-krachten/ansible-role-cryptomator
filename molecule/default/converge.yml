@@ -1,0 +1,13 @@
+---
+
+- name: Converge pre playbook
+  ansible.builtin.import_playbook: converge-pre.yml
+  when: molecule_converge_pre is undefined or molecule_converge_pre | bool
+
+- name: Converge
+  hosts: all
+  become: "yes"
+  tasks:
+    - name: Include role 'ansible-role-cryptomator'
+      ansible.builtin.include_role:
+        name: ansible-role-cryptomator
