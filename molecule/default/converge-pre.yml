@@ -1,0 +1,16 @@
+---
+
+- name: Converge-pre
+  hosts: all
+  become: "yes"
+  tasks:
+    - name: Create directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+      loop:
+        - /usr/share/icons
+        - /usr/share/applications

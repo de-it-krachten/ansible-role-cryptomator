@@ -1,0 +1,21 @@
+---
+
+- name: Download cryptomator appimage
+  ansible.builtin.include_tasks:
+    file: binary.yml
+
+- name: Create cryptomator desktop
+  ansible.builtin.template:
+    src: cryptomator.desktop.j2
+    dest: /usr/share/applications/cryptomator.desktop
+    mode: "0644"
+  become: yes
+
+- name: Copy cryptomator icon
+  ansible.builtin.copy:
+    src: cryptomator.svg
+    dest: /usr/share/icons/cryptomator.svg
+    owner: root
+    group: root
+    mode: "0644"
+  become: yes

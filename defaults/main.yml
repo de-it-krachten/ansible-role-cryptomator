@@ -1,0 +1,34 @@
+---
+
+# Github CLI - API
+cryptomator_api: https://api.github.com/repos/cryptomator/cryptomator
+
+# Github CLI - repo
+cryptomator_repo: https://github.com/cryptomator/cryptomator
+
+# Lookup table for architecture
+cryptomator:
+  architecture:
+    x86_64: amd64
+    i386: i386
+    armv6l: arm
+    armv7l: arm
+    aarch64: arm64
+  system:
+    Linux: linux
+    Darwin: darwin
+
+# Construct filename based on the system & architecture
+cryptomator_file: "cryptomator-{{ cryptomator_version | regex_replace('^v') }}-{{ ansible_architecture }}.AppImage"
+
+cryptomator_version_command: >-
+  {{ cryptomator_path }} --version | awk '{print "v"$3}'
+
+# Version of the CLI to install
+cryptomator_version: latest
+
+# Location/ownership/permissions of the binary
+cryptomator_path: /usr/local/bin/cryptomator
+cryptomator_owner: root
+cryptomator_group: root
+cryptomator_mode: '0755'
