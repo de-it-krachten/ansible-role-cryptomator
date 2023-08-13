@@ -64,6 +64,10 @@
       changed_when: false
       register: __tmpdir
 
+    - name: Test
+      ansible.builtin.debug:
+        var: cryptomator_version_info
+
     - name: Get download location for binary/archive
       ansible.builtin.set_fact:
         cryptomator_url: "{{ cryptomator_version_info.assets | json_query(query) | first }}"

@@ -15,3 +15,5 @@ molecule:
     roles_extra: []
   converge:
     pre: converge-pre.yml
+    vars:
+      cryptomator_version: '1.9.3'
