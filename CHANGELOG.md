@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/de-it-krachten/ansible-role-cryptomator/compare/v1.1.0...v1.2.0) (2024-06-04)
+
+
+### Bug Fixes
+
+* Remove debugging task ([087cbc7](https://github.com/de-it-krachten/ansible-role-cryptomator/commit/087cbc7ff9bdc5c26b96e764dbf809988a8331d1))
+
+
+### Features
+
+* Add support for Ubuntu 24.04 LTS + Fedora 40 ([85d30df](https://github.com/de-it-krachten/ansible-role-cryptomator/commit/85d30dfc02829520738515d2f0e6d8fa85979270))
+
 # [1.1.0](https://github.com/de-it-krachten/ansible-role-cryptomator/compare/v1.0.0...v1.1.0) (2023-08-30)
 
 
