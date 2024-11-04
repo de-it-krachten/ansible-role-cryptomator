@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/de-it-krachten/ansible-role-cryptomator/compare/v1.2.0...v1.2.1) (2024-11-04)
+
+
+### Bug Fixes
+
+* Show better mesage when package could not be found ([65db94a](https://github.com/de-it-krachten/ansible-role-cryptomator/commit/65db94a7bcacdb1051caadd63a760fefecd766af))
+
 # [1.2.0](https://github.com/de-it-krachten/ansible-role-cryptomator/compare/v1.1.0...v1.2.0) (2024-06-04)
 
 
