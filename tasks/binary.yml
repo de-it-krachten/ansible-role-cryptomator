@@ -6,9 +6,10 @@
     cryptomator_architecture: "{{ cryptomator['architecture'][ansible_architecture] | default(ansible_architecture) }}"
 
 - name: Get cryptomator version installed
-  ansible.builtin.shell: |
-    set -o pipefail
-    {{ cryptomator_version_command }}
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      {{ cryptomator_version_command }}
   args:
     executable: /bin/bash
   changed_when: no
@@ -66,9 +67,16 @@
 
     - name: Get download location for binary/archive
       ansible.builtin.set_fact:
-        cryptomator_url: "{{ cryptomator_version_info.assets | json_query(query) | first }}"
+        cryptomator_url: "{{ cryptomator_version_info.assets | json_query(query) | first | default('N/A') }}"
       vars:
         query: "[?name=='{{ cryptomator_file }}'].browser_download_url"
+
+    - name: Fail when package could not be found
+      ansible.builtin.fail:
+        msg:
+          - Unable to find package '{{ cryptomator_file }}'.
+          - Please make sure this version was released for this platform.
+      when: cryptomator_url == 'N/A'
 
     - name: Download binary/archive
       ansible.builtin.get_url:

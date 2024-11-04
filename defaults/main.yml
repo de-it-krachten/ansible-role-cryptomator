@@ -22,7 +22,7 @@ cryptomator:
 cryptomator_file: "cryptomator-{{ cryptomator_version | regex_replace('^v') }}-{{ ansible_architecture }}.AppImage"
 
 cryptomator_version_command: >-
-  {{ cryptomator_path }} --version | awk '{print "v"$3}'
+  {{ cryptomator_path }} --version | awk '/Cryptomator version/ {print $3}'
 
 # Version of the CLI to install
 cryptomator_version: latest
