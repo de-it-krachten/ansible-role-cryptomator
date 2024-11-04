@@ -21,10 +21,8 @@ None
 
 Supported platforms
 
-- Red Hat Enterprise Linux 7<sup>1</sup>
 - Red Hat Enterprise Linux 8<sup>1</sup>
 - Red Hat Enterprise Linux 9<sup>1</sup>
-- CentOS 7
 - RockyLinux 8
 - RockyLinux 9
 - OracleLinux 8
@@ -69,7 +67,7 @@ cryptomator:
 cryptomator_file: "cryptomator-{{ cryptomator_version | regex_replace('^v') }}-{{ ansible_architecture }}.AppImage"
 
 cryptomator_version_command: >-
-  {{ cryptomator_path }} --version | awk '{print "v"$3}'
+  {{ cryptomator_path }} --version | awk '/Cryptomator version/ {print $3}'
 
 # Version of the CLI to install
 cryptomator_version: latest
