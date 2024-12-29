@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/de-it-krachten/ansible-role-cryptomator/compare/v1.2.1...v1.3.0) (2024-12-29)
+
+
+### Features
+
+* Update supported platforms & CI ([dee63fc](https://github.com/de-it-krachten/ansible-role-cryptomator/commit/dee63fcf37a2d0ad9c50d57a04460afa0fb7eda9))
+
 ## [1.2.1](https://github.com/de-it-krachten/ansible-role-cryptomator/compare/v1.2.0...v1.2.1) (2024-11-04)
 
 
