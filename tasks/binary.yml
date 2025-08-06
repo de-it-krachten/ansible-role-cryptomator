@@ -44,9 +44,9 @@
 
 - name: Get version information
   ansible.builtin.set_fact:
-    cryptomator_version_info: "{{ cryptomator_version_info.json | json_query(query) | first }}"
+    cryptomator_version_info: "{{ cryptomator_version_info.json | json_query(qq) | first }}"
   vars:
-    query: "[?tag_name=='{{ cryptomator_version }}']"
+    qq: "[?tag_name=='{{ cryptomator_version }}']"
 
 - name: Show cryptomator release
   ansible.builtin.debug:
@@ -67,9 +67,9 @@
 
     - name: Get download location for binary/archive
       ansible.builtin.set_fact:
-        cryptomator_url: "{{ cryptomator_version_info.assets | json_query(query) | first | default('N/A') }}"
+        cryptomator_url: "{{ cryptomator_version_info.assets | json_query(qq) | first | default('N/A') }}"
       vars:
-        query: "[?name=='{{ cryptomator_file }}'].browser_download_url"
+        qq: "[?name=='{{ cryptomator_file }}'].browser_download_url"
 
     - name: Fail when package could not be found
       ansible.builtin.fail:
