@@ -8,6 +8,7 @@
   hosts: all
   become: "yes"
   vars:
+    molecule_driver: "{{ lookup('env', 'MOLECULE_DRIVER_NAME') }}"
     cryptomator_version: 1.9.3
   tasks:
     - name: Include role 'ansible-role-cryptomator'

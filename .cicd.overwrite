@@ -10,6 +10,24 @@ generic:
     https://github.com/cryptomator/cryptomator<br>
   collections: []
 
+# Supported platforms
+platforms:
+  sles15:
+    supported: true
+    ci: false
+  sles16:
+    supported: true
+    ci: false
+  opensuse15:
+    supported: true
+    ci: true
+  opensuse16:
+    supported: true
+    ci: true
+  ubuntu2004:
+    supported: true
+    ci: true
+
 molecule:
   requirements:
     roles_extra: []
