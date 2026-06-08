@@ -69,7 +69,7 @@ cryptomator:
     Darwin: darwin
 
 # Construct filename based on the system & architecture
-cryptomator_file: "cryptomator-{{ cryptomator_version | regex_replace('^v') }}-{{ ansible_architecture }}.AppImage"
+cryptomator_file: "cryptomator-{{ cryptomator_version | regex_replace('^v') }}-{{ ansible_facts.architecture }}.AppImage"
 
 cryptomator_version_command: >-
   {{ cryptomator_path }} --version | awk '/Cryptomator version/ {print $3}'
