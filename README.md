@@ -39,8 +39,9 @@ Supported platforms
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
 - Ubuntu 24.04 LTS
-- Fedora 42
+- Ubuntu 26.04 LTS
 - Fedora 43
+- Fedora 44<sup>1</sup>
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -68,7 +69,7 @@ cryptomator:
     Darwin: darwin
 
 # Construct filename based on the system & architecture
-cryptomator_file: "cryptomator-{{ cryptomator_version | regex_replace('^v') }}-{{ ansible_architecture }}.AppImage"
+cryptomator_file: "cryptomator-{{ cryptomator_version | regex_replace('^v') }}-{{ ansible_facts.architecture }}.AppImage"
 
 cryptomator_version_command: >-
   {{ cryptomator_path }} --version | awk '/Cryptomator version/ {print $3}'
