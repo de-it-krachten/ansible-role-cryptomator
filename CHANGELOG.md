@@ -1,3 +1,13 @@
+# [1.7.0](https://github.com/de-it-krachten/ansible-role-cryptomator/compare/v1.6.0...v1.7.0) (2026-07-26)
+
+
+### Features
+
+* Add support for ansible-core 2.20+ ([686715c](https://github.com/de-it-krachten/ansible-role-cryptomator/commit/686715cba152ca27437b0f0e9b2c2a0ce75174d5))
+* Added support for Fedora 44 ([0478320](https://github.com/de-it-krachten/ansible-role-cryptomator/commit/0478320e801fd7310beec931363af92ce6ecaf01))
+* Added support for Ubuntu 26.04 LTS ([713bd96](https://github.com/de-it-krachten/ansible-role-cryptomator/commit/713bd96e39e3266ebd79da0ccb7cdf09a71c14fa))
+* Drop support for Fedora 42 ([93c7698](https://github.com/de-it-krachten/ansible-role-cryptomator/commit/93c7698532deabfed8b4adeffac0b5d4a12b4c2b))
+
 # [1.6.0](https://github.com/de-it-krachten/ansible-role-cryptomator/compare/v1.5.0...v1.6.0) (2026-03-15)
 
 
