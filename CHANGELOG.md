@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/de-it-krachten/ansible-role-cryptomator/compare/v1.7.0...v1.8.0) (2026-11-07)
+
+
+### Features
+
+* Drop support for Debian 11 (Bullseye) ([8466465](https://github.com/de-it-krachten/ansible-role-cryptomator/commit/84664652f2bc1e7753891274e9fe413099eae537))
+
 # [1.7.0](https://github.com/de-it-krachten/ansible-role-cryptomator/compare/v1.6.0...v1.7.0) (2026-07-26)
 
 
